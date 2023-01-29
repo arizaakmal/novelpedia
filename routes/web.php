@@ -46,7 +46,7 @@ Route::get('/signUp', function () {
     return view('signUp', ['title' => 'Sign Up', 'active' => 'signUp']);
 })->name('signUp');
 
-Route::post('/login', [LoginController::class, 'create'])->name('login.submit');
+Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
 
 Route::post('/signUp', [SignUpController::class, 'store'])->name('signUp.submit');
 

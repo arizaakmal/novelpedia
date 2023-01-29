@@ -8,7 +8,7 @@
         </div>
     @endif
     @if (session()->has('error'))
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
             {{ session('error') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
@@ -19,12 +19,24 @@
             <h1 class="h3 mb-3 fw-normal text-center mt-5">Please sign in</h1>
 
             <div class="form-floating">
-                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                <label for="floatingInput">Email address</label>
+                <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
+                    placeholder="name@example.com" name="email" autofocus required value="{{ old('email') }}">
+                <label for="email">Email address</label>
+                @error('email')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
             <div class="form-floating">
-                <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-                <label for="floatingPassword">Password</label>
+                <input type="password" class="form-control @error('password') is-invalid @enderror" id="password"
+                    placeholder="Password" name="password" required>
+                <label for="password">Password</label>
+                @error('password')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
 
             <div class="checkbox mb-3">

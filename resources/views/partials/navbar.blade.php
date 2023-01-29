@@ -35,8 +35,8 @@
             </ul>
 
             <form class=" d-flex " role="search" action="/cari" method="GET">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
-                    value="{{ request('cari') }}">
+                <input class="form-control me-2" type="search" name="keywords" placeholder="Cari Novel"
+                    aria-label="Search">
                 {{-- <button class="btn btn-outline-primary " type="submit">Search</button> --}}
             </form>
 

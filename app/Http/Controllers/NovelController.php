@@ -6,6 +6,7 @@ use App\Models\Genre;
 use App\Models\Novel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Pagination\Paginator;
 
 class NovelController extends Controller
 {
@@ -26,10 +27,10 @@ class NovelController extends Controller
         if (request('genre')) {
             $genre = Genre::where('slug', request('genre'))->first();
             $title = 'Genre: ' . $genre->name;
-            $novels = $genre->novels()->latest()->paginate(10);
+            $novels = $genre->novels()->latest()->paginate(4);
         } else {
             $genre = null;
-            $novels = Novel::latest()->filter(request(['search']))->paginate(10)->withQueryString();
+            $novels = Novel::latest()->filter(request(['search']))->paginate(4)->withQueryString();
         }
 
         return view('index', [
@@ -129,8 +130,9 @@ class NovelController extends Controller
 
     public function cari(Request $request)
     {
-        $cari = $request->cari;
-        $novel = Novel::latest()->filter(request(['cari']))->paginate(10);
-        return view('index', ['title' => 'Home', 'active' => 'home', 'novels' => $novel]);
+        // $cari = $request->cari;
+        $searchTerm = $request->input('keywords');
+        $novel = Novel::where('title', 'LIKE', "%$searchTerm%")->get();
+        return view('index', ['title' => 'Hasil Pencarian...', 'active' => 'cari', 'novels' => $novel]);
     }
 }

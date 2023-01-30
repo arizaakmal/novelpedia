@@ -19,12 +19,19 @@ class LoginController extends Controller
 
         if (Auth::attempt($validatedData)) {
             $request->session()->regenerate();
-
             return redirect()->intended('/')->with('success', 'Login successfull!');
         }
 
         return back()->with([
             'error' => 'Login gagal!',
         ]);
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->flush();
+
+        return redirect('/login')->with('success', 'Anda berhasil logout.');
     }
 }

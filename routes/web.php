@@ -48,6 +48,8 @@ Route::get('/signUp', function () {
 
 Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
 
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
 Route::post('/signUp', [SignUpController::class, 'store'])->name('signUp.submit');
 
 

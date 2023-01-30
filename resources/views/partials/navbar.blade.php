@@ -31,7 +31,6 @@
                         <li><a class="dropdown-item" href="/genre/adventure">Adventure</a></li>
                         <li><a class="dropdown-item" href="/genre/romance">Romance</a></li>
                         <li><a class="dropdown-item" href="/genre/slice-of-life">Slice of Life</a></li> --}}
-
             </ul>
 
             <form class=" d-flex " role="search" action="/cari" method="GET">
@@ -39,11 +38,33 @@
                     aria-label="Search">
                 {{-- <button class="btn btn-outline-primary " type="submit">Search</button> --}}
             </form>
+            @if (Auth::check())
+                <ul class="navbar-nav me-1 mb-2 mb-lg-0">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Welcome, {{ Auth::user()->name }}
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();document.getElementById('logout-form').submit();">Log
+                                    out
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                    style="display: none;">
+                                    @csrf
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            @else
+                <form action="" class=" d-flex">
+                    <button class=" btn btn-success"><a class="nav-link" href="/login">Sign In</a></button>
+                    {{-- <button class=" btn btn-primary ms-2  "><a class="nav-link" href="/signUp">Sign Up</a></button> --}}
+                </form>
+            @endif
 
-            <form action="" class=" d-flex">
-                <button class=" btn btn-success   "><a class="nav-link" href="/login">Sign In</a></button>
-                <button class=" btn btn-primary ms-2  "><a class="nav-link" href="/signUp">Sign Up</a></button>
-            </form>
 
 
             {{-- <button class="btn btn-success ms-3" type="submit">Login</button>

@@ -52,6 +52,12 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::post('/signUp', [SignUpController::class, 'store'])->name('signUp.submit');
 
+Route::get('/profile', [UserController::class, 'show'])->name('profile');
+
+Route::get('/change-password', [UserController::class, 'update'])->name('changePassword');
+
+Route::post('/change-password', [UserController::class, 'update'])->name('changePassword');
+
 
 
 Route::get('/rangking', function () {

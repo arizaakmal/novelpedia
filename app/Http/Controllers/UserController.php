@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -47,6 +48,9 @@ class UserController extends Controller
     public function show(User $user)
     {
         //
+        $user = Auth::user();
+
+        return view('profile', ['title' => 'User Profile', 'active' => 'profile', 'user' => $user]);
     }
 
     /**
@@ -70,6 +74,9 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         //
+        $user = Auth::user();
+
+        return view('changePassword', ['title' => 'Change Password', 'active' => 'change-password', 'user' => $user]);
     }
 
     /**
@@ -103,7 +110,5 @@ class UserController extends Controller
         //if successful, redirect to intended page
 
         //if unsuccessful, redirect back to login page with errors
-
-
     }
 }

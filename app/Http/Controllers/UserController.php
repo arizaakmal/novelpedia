@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+
 
 class UserController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -16,6 +19,7 @@ class UserController extends Controller
     public function index()
     {
         //
+
     }
 
     /**
@@ -74,9 +78,29 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         //
-        $user = Auth::user();
+        // $validatedData = $this->validate($request, [
+        //     'currentPassword' => 'required',
+        //     'newPassword' => 'required|confirmed|min:6'
+        // ]);
 
-        return view('changePassword', ['title' => 'Change Password', 'active' => 'change-password', 'user' => $user]);
+        // // Get user
+        // $user = Auth::user();
+
+        // // Check if old password is correct
+        // if (!Hash::check($validatedData['currentPassword'], $user->password)) {
+        //     return back()->withErrors(['currentPassword' => 'Password lama salah']);
+        // }
+
+        // $user = User::find(auth()->user()->id);
+
+        // // Update password
+        // $user->password = Hash::make($validatedData['newPassword']);
+
+        // // Save user
+        // $user->save();
+
+        // // Redirect with success message
+        // return redirect()->back()->withSuccess('Password berhasil diubah');
     }
 
     /**
@@ -110,5 +134,65 @@ class UserController extends Controller
         //if successful, redirect to intended page
 
         //if unsuccessful, redirect back to login page with errors
+    }
+
+    // public function savePassword(Request $request, $id)
+    // {
+    //     // Validate input data
+    //     $validatedData = $this->validate($request, [
+    //         'password' => 'required|min:6',
+    //         'new_password' => 'required|min:6|confirmed'
+    //     ]);
+
+    //     // Get current user
+    //     $user = Auth::user();
+
+    //     // Check if provided password is correct
+    //     if (Hash::check($validatedData['password'], $user->password)) {
+    //         $user = User::find(auth()->user()->id);
+    //         // Update password
+    //         $user->password = Hash::make($validatedData['new_password']);
+    //         $user->save();
+
+    //         // Redirect back with success message
+    //         return back()->with('success', 'Password has been changed!');
+    //     }
+
+    //     // Redirect back with error message
+    //     return back()->with('error', 'Incorrect password');
+    // }
+
+    public function changePassword(Request $request)
+    {
+
+
+        // Validate request
+        $validatedData = $this->validate($request, [
+            'currentPassword' => 'required',
+            'password' => 'required|confirmed|min:6',
+            'password_confirmation' => 'required'
+        ]);
+
+
+        // Get user
+        $user = Auth::user();
+
+        // Check if old password is correct
+        if (!Hash::check($validatedData['currentPassword'], $user->password)) {
+            return back()->with(['error' => 'Password lama salah']);
+        }
+
+        $user = User::find(auth()->user()->id);
+
+        // Update password
+        $user->password = Hash::make($validatedData['password']);
+
+        // Save user
+        $user->save();
+
+
+
+        // Redirect with success message
+        return redirect()->back()->with('success', 'Password berhasil diubah');
     }
 }

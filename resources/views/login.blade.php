@@ -7,14 +7,21 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
-    @if (session()->has('error'))
+    {{-- if withErrors email --}}
+    @if ($errors->has('email'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ $errors->first('email') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+    {{-- @if (session()->has('error'))
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
             {{ session('error') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-    @endif
+    @endif --}}
     <main class="form-signin w-25  m-auto">
-        <form method="POST" name="login" action="{{ route('login.submit') }}">
+        <form method="POST" action="{{ route('login.submit') }}">
             @csrf
             <h1 class="h3 mb-3 fw-normal text-center mt-5">Please sign in</h1>
 

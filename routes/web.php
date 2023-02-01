@@ -38,15 +38,14 @@ Route::get('/genre', function () {
 
 // Route::get('/genre/{genre:slug}', [GenreController::class, 'show'])->name('genre.show');
 
-Route::get('/login', function () {
-    return view('login', ['title' => 'Login', 'active' => 'login']);
-})->name('login');
+//login
+Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 
 Route::get('/signUp', function () {
     return view('signUp', ['title' => 'Sign Up', 'active' => 'signUp']);
-})->name('signUp');
+})->name('signUp')->middleware('guest');
 
-Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
+Route::post('/login', [LoginController::class, 'authenticate'])->name('login.submit');
 
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
@@ -54,9 +53,13 @@ Route::post('/signUp', [SignUpController::class, 'store'])->name('signUp.submit'
 
 Route::get('/profile', [UserController::class, 'show'])->name('profile');
 
-Route::get('/change-password', [UserController::class, 'update'])->name('changePassword');
+//Route::get('/change-password', [UserController::class, 'show'])->name('changePasswordForm');
 
-Route::post('/change-password', [UserController::class, 'update'])->name('changePassword');
+Route::get('/change-password', function () {
+    return view('changePassword', ['title' => 'Change Password', 'active' => 'changePasswordForm']);
+})->name('changePasswordForm');
+
+Route::post('/change-password', [UserController::class, 'changePassword'])->name('changePassword');
 
 
 

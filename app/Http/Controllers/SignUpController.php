@@ -19,7 +19,7 @@ class SignUpController extends Controller
         ]);
 
         //hash the password
-        $validatedData['password'] = bcrypt($validatedData['password']);
+        // $validatedData['password'] = bcrypt($validatedData['password']);
 
 
         //store in the database

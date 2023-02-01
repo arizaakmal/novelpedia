@@ -24,7 +24,7 @@
                         <input type="text" id="username" class="form-control w-50" placeholder="{{ $user->email }}">
                     </div>
                 </fieldset>
-                <a href="{{ route('changePassword') }}" class="btn btn-primary mt-3">Change Password</a>
+                <a href="{{ route('changePasswordForm') }}" class="btn btn-primary mt-3">Change Password</a>
             </div>
         </div>
     </div>

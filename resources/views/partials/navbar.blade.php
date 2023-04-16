@@ -1,5 +1,5 @@
 {{-- Navbar --}}
-<nav class="navbar navbar-expand-lg text-bg-info">
+<nav class="navbar navbar-expand-lg ">
     <div class="container-fluid ms-5">
         <a class="navbar-brand " href="/">Novelpedia</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -34,8 +34,11 @@
             </ul>
 
             <form class=" d-flex " role="search" action="/cari" method="GET">
-                <input class="form-control me-2" type="search" name="keywords" placeholder="Cari Novel"
-                    aria-label="Search">
+                <div class="search-box me-2">
+                    <input class="form-control " type="search" name="keywords" placeholder="Cari Novel"
+                        aria-label="Search">
+                    <span class="fa fa-search"></span>
+                </div>
                 {{-- <button class="btn btn-outline-primary " type="submit">Search</button> --}}
             </form>
             @if (Auth::check())
@@ -62,7 +65,8 @@
                 </ul>
             @else
                 <form action="" class=" d-flex">
-                    <button class=" btn btn-success"><a class="nav-link" href="/login">Sign In</a></button>
+                    <button class=" btn btn-success btn-login "><a class="nav-link" href="/login">Log
+                            In</a></button>
                     {{-- <button class=" btn btn-primary ms-2  "><a class="nav-link" href="/signUp">Sign Up</a></button> --}}
                 </form>
             @endif

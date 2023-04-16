@@ -45,5 +45,6 @@ class DatabaseSeeder extends Seeder
         Author::factory(5)->create();
 
         Novel::factory(10)->create();
-    }
+
+        
 }

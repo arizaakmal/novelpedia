@@ -1,0 +1,55 @@
+nav {
+    background: linear-gradient(
+        90deg,
+        #e64bff 0%,
+        #004cf8 47.92%,
+        #450dfc 100%
+    );
+    box-shadow: 2px 6px 6px 1px rgba(0, 0, 0, 0.25);
+}
+.navbar-brand {
+    color: #fff; /* Mengubah warna teks menjadi putih */
+}
+
+.navbar-brand:hover {
+    color: #ffff66; /* warna awal */
+}
+.navbar-nav .nav-link {
+    color: #fff; /* Mengubah warna teks menjadi putih */
+}
+
+input[type="search"] {
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+    border-radius: 20px; /* ganti angka sesuai keinginan */
+}
+
+.search-box {
+    position: relative;
+}
+
+.search-box .fa-search {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2em;
+    color: #999;
+}
+
+.search-box input[type="search"] {
+    padding-right: 35px;
+}
+
+.btn-login {
+    background: radial-gradient(
+            100% 1108.44% at 15.99% 0%,
+            #6fac09 0%,
+            #8fd01f 69.27%,
+            #a5f719 100%
+        )
+        /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}

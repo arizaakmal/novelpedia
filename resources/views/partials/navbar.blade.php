@@ -1,5 +1,5 @@
 {{-- Navbar --}}
-<nav class="navbar navbar-expand-lg ">
+<nav class="navbar navbar-expand-lg mb-5 ">
     <div class="container-fluid ms-5">
         <a class="navbar-brand " href="/">Novelpedia</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"

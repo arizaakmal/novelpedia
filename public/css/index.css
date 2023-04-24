@@ -1,0 +1,36 @@
+.container img {
+    border-radius: 20px;
+}
+
+.carousel {
+    position: relative;
+    height: auto; /* Tinggi carousel */
+}
+
+.carousel-item img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px; /* sesuaikan lebar tombol sesuai kebutuhan */
+    height: 20px; /* sesuaikan tinggi tombol sesuai kebutuhan */
+}
+
+.carousel-control-prev {
+    left: 10px; /* sesuaikan jarak dari kiri */
+}
+
+.carousel-control-next {
+    right: 10px; /* sesuaikan jarak dari kanan */
+}
+
+.pocari,
+.sepeda {
+    /* object-fit: contain; */
+    height: 100%;
+}

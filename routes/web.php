@@ -8,6 +8,7 @@ use App\Http\Controllers\GenreController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NovelController;
 use App\Http\Controllers\SignUpController;
+use App\Http\Controllers\DashboardNovelController;
 
 /*
 |--------------------------------------------------------------------------
@@ -78,3 +79,11 @@ Route::get('/hot', function () {
 });
 
 Route::get('/novel/{novel:slug}', [NovelController::class, 'show']);
+
+Route::get('/dashboard', function () {
+    return view('dashboard.index', ['title' => 'Dashboard', 'active' => 'dashboard']);
+});
+
+Route::resource('dashboard/novels', DashboardNovelController::class);
+
+

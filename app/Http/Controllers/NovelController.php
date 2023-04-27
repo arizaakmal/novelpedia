@@ -21,7 +21,7 @@ class NovelController extends Controller
 
 
 
-        $title = 'All Recent Novel';
+        $title = 'Hot Novel';
 
 
         if (request('genre')) {

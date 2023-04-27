@@ -35,7 +35,16 @@
                 <img src="{{ asset('img/sepeda.jpg') }}" class="img-fluid sepeda shadow-md w-100 " alt="iklan">
             </div>
         </div>
-        <h2 class="">{{ $title }}</h2>
+        {{-- Buat garis vertikal di sebelah kiri h2 --}}
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex justify-content-start">
+                    <div class="line me-2"></div>
+                    <h2 class="text-center">Hot Novel</h2>
+                </div>
+            </div>
+        </div>
+        {{-- <h2 class="">{{ $title }}</h2> --}}
         <div class="row">
             @foreach ($novels as $novel)
                 <div class="col-md-3">

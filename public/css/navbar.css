@@ -53,3 +53,12 @@ input[type="search"] {
     padding-left: 2rem;
     padding-right: 2rem;
 }
+
+.btn-login:hover {
+    background: radial-gradient(
+        100% 1108.44% at 15.99% 0%,
+        #80d41a 0%,
+        #a1e636 69.27%,
+        #b6fa28 100%
+    );
+}

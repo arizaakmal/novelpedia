@@ -14,22 +14,25 @@
 
     {{-- tambahkan flash message ketika novel berhasil ditambahkan --}}
     @if (session()->has('success'))
-        <div class="alert alert-success col-lg-8" role="alert">
+        <div class="alert alert-success alert-dismissible fade show col-lg-8" role="alert">
             {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
 
     {{-- tambahkan flash message ketika novel berhasil dihapus --}}
     @if (session()->has('delete'))
-        <div class="alert alert-danger col-lg-8" role="alert">
+        <div class="alert alert-danger alert-dismissible fade show col-lg-8" role="alert">
             {{ session('delete') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
 
     {{-- tambahkan flash message ketika novel berhasil diupdate --}}
     @if (session()->has('update'))
-        <div class="alert alert-success col-lg-8" role="alert">
+        <div class="alert alert-success alert-dismissible fade show col-lg-8" role="alert">
             {{ session('update') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
 
@@ -59,9 +62,14 @@
                         <a href="#" class="btn btn-sm btn-warning mr-2">
                             <span data-feather="edit"></span>
                         </a>
-                        <a href="#" class="btn btn-sm btn-danger">
-                            <span data-feather="trash-2"></span>
-                        </a>
+                        <form action="{{ route('dashboard.novels.destroy', $novel->slug) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" onclick="return confirm('Are you sure you want to delete this novel?')"
+                                class="btn btn-sm btn-danger">
+                                <span data-feather="trash-2"></span>
+                            </button>
+                        </form>
                     </td>
                 </tr>
             @endforeach

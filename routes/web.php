@@ -84,6 +84,14 @@ Route::get('/dashboard', function () {
     return view('dashboard.index', ['title' => 'Dashboard', 'active' => 'dashboard']);
 });
 
-Route::resource('dashboard/novels', DashboardNovelController::class);
+Route::resource('dashboard/novels', DashboardNovelController::class)->names([
+    'index' => 'dashboard.novels.index',
+    'create' => 'dashboard.novels.create',
+    'store' => 'dashboard.novels.store',
+    'show' => 'dashboard.novels.show',
+    'edit' => 'dashboard.novels.edit',
+    'update' => 'dashboard.novels.update',
+    'destroy' => 'dashboard.novels.destroy',
+]);
 
 

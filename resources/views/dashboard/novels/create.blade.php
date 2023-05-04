@@ -7,7 +7,7 @@
 
     {{-- Buat form untuk create novel --}}
     <div class="col-lg-8">
-        <form method="POST" action="/dashboard/novels">
+        <form method="POST" action="/dashboard/novels" enctype="multipart/form-data">
             @csrf
             <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
@@ -38,29 +38,42 @@
             {{-- tambahkan old('genre') untuk menampilkan kembali inputan sebelumnya ketika terjadi error --}}
             <div class="mb-3">
                 <label for="genre" class="form-label">Genre</label>
-                <input type="text" class="form-control @error('genre') is-invalid @enderror" id="genre"
-                    name="genre" value="{{ old('genre') }}">
+                <div class="row">
+                    @foreach ($genres as $genre)
+                        <div class="col-md-2">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="genres[]" value="{{ $genre->id }}"
+                                    id="{{ $genre->name }}"
+                                    {{ in_array($genre->id, old('genres') ?: []) ? 'checked' : '' }}>
+                                <label class="form-check-label" for="{{ $genre->name }}">
+                                    {{ $genre->name }}
+                                </label>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
                 {{-- tambahkan error message untuk genre --}}
-                @error('genre')
-                    <div class="invalid-feedback">
+                @error('genres')
+                    <div class="invalid-feedback d-block">
                         {{ $message }}
                     </div>
                 @enderror
             </div>
 
+
             {{-- tambahkan old('author') untuk menampilkan kembali inputan sebelumnya ketika terjadi error --}}
             <div class="mb-3">
                 <label for="author" class="form-label">Author</label>
-                <select class="form-select" name="author_id">
-                    @foreach ($novels as $novel)
-                        @if (old('author_id') == $novel->author->id)
-                            <option value="{{ $novel->author->id }}" selected>{{ $novel->author->name }}
-                            </option>
+                <select class="form-select @error('author_id') is-invalid @enderror" name="author_id">
+                    @foreach ($authors as $author)
+                        @if (old('author_id') == $author->id)
+                            <option value="{{ $author->id }}" selected>{{ $author->name }}</option>
                         @else
-                            <option value="{{ $novel->author->id }}">{{ $novel->author->name }}</option>
+                            <option value="{{ $author->id }}">{{ $author->name }}</option>
                         @endif
                     @endforeach
                 </select>
+
                 {{-- tambahkan error message untuk author --}}
                 @error('author_id')
                     <div class="invalid-feedback">
@@ -72,8 +85,9 @@
             {{-- tambahkan old('cover') untuk menampilkan kembali inputan sebelumnya ketika terjadi error --}}
             <div class="mb-3">
                 <label for="cover" class="form-label">Cover</label>
-                <input type="text" class="form-control @error('cover') is-invalid @enderror" id="cover"
-                    name="cover" value="{{ old('cover') }}">
+                <img class="img-preview img-fluid mb-3 col-sm-5 d-block">
+                <input type="file" class="form-control @error('cover') is-invalid @enderror" id="cover"
+                    name="cover" accept="image/*" onchange="previewImage()">
                 {{-- tambahkan error message untuk cover --}}
                 @error('cover')
                     <div class="invalid-feedback">
@@ -81,6 +95,19 @@
                     </div>
                 @enderror
             </div>
+
+            {{--  <div class="mb-3">
+                <label for="image" class="form-label">Post Image</label>
+                <img class="img-preview img-fluid mb-3 col-sm-5 d-block">
+                <input class="form-control @error('image') is-invalid @enderror" type="file" id="image"
+                    name="image" onchange="previewImage()">
+                @error('image')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div> --}}
+
 
 
             {{-- tambahkan old('description') untuk menampilkan kembali inputan sebelumnya ketika terjadi error --}}
@@ -97,21 +124,40 @@
             </div>
 
             {{-- tambahkan old('status') untuk menampilkan kembali inputan sebelumnya ketika terjadi error --}}
-            <div class="mb-3">
+            {{-- <div class="mb-3">
                 <label for="status" class="form-label">Status</label>
                 <select class="form-select" name="status">
                     <option value="ONGOING" {{ old('status') == 'ONGOING' ? 'selected' : '' }}>ONGOING</option>
                     <option value="COMPLETED" {{ old('status') == 'COMPLETED' ? 'selected' : '' }}>COMPLETED</option>
                 </select>
                 {{-- tambahkan error message untuk status --}}
-                @error('status')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                @enderror
-            </div>
-
-            <button type="submit" class="btn btn-primary">Create!</button>
-        </form>
+            @error('status')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
     </div>
+
+    <button type="submit" class="btn btn-primary">Create!</button>
+    </form>
+    </div>
+
+    <script>
+        const titleInput = document.querySelector('input[name="title"]');
+        const slugInput = document.querySelector('input[name="slug"]');
+
+        titleInput.addEventListener('input', (e) => {
+            const slug = e.target.value.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-');
+            slugInput.value = slug;
+        });
+
+        function previewImage() {
+
+            const image = document.querySelector('#cover');
+            const imgPreview = document.querySelector('.img-preview');
+
+            const blob = URL.createObjectURL(image.files[0]);
+            imgPreview.src = blob;
+        }
+    </script>
 @endsection

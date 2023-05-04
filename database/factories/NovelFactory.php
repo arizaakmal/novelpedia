@@ -19,7 +19,6 @@ class NovelFactory extends Factory
         return [
             'title' => $this->faker->sentence(mt_rand(3, 10)),
             'slug' => $this->faker->slug(),
-            'excerpt' => $this->faker->paragraph(),
             'description' => $this->faker->paragraphs(mt_rand(1, 3), true),
             'author_id' => mt_rand(1, 5),
         ];

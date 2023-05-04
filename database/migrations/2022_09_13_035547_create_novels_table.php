@@ -18,9 +18,8 @@ return new class extends Migration
             $table->string('title');
             $table->foreignId('author_id');
             $table->string('slug')->unique();
-            $table->text('excerpt');
             $table->text('description');
-            $table->string('image')->nullable();
+            $table->string('cover')->nullable();
             $table->timestamp('published_at')->nullable();
             $table->timestamps();
         });

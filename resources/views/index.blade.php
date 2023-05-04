@@ -54,7 +54,7 @@
                         <div class="card-body">
                             <h5> <a href="/novel/{{ $novel->slug }}" class="text-decoration-none">{{ $novel->title }}</a>
                             </h5>
-                            <p class="card-text">{{ $novel->excerpt }}</p>
+                            <p class="card-text">{{ substr(strip_tags($novel->description), 0, 50) }}...</p>
                         </div>
                     </div>
                 </div>
@@ -83,7 +83,7 @@
                                 <h5> <a href="/novel/{{ $novel->slug }}"
                                         class="text-decoration-none">{{ $novel->title }}</a>
                                 </h5>
-                                <p class="card-text">{{ $novel->excerpt }}</p>
+                                <p class="card-text">{{ substr(strip_tags($novel->description), 0, 50) }}...</p>
                             </div>
                         </div>
                     </div>

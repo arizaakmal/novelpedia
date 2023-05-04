@@ -47,4 +47,5 @@ class DatabaseSeeder extends Seeder
         Novel::factory(10)->create();
 
         
+    }
 }

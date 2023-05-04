@@ -15,7 +15,7 @@ class Novel extends Model
 
     protected $with = [
         'author',
-        'genre'
+        'genres'
     ];
 
     public function scopeFilter($query, array $filters)
@@ -36,7 +36,7 @@ class Novel extends Model
         return $this->belongsTo(Author::class);
     }
 
-    public function genre()
+    public function genres()
     {
         return $this->belongsToMany(Genre::class);
     }

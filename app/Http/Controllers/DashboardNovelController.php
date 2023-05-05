@@ -65,7 +65,7 @@ class DashboardNovelController extends Controller
     if ($request->hasFile('cover')) {
         $file = $request->file('cover');
         $filename = time() . '.' . $file->getClientOriginalExtension();
-        $file->storeAs('public/covers', $filename);
+        $file->storeAs('covers', $filename);
         $validatedData['cover'] = $filename;
     } else {
         $validatedData['cover'] = null;

@@ -14,6 +14,13 @@
                     Novels
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('dashboard/authors') || Request::is('dashboard/authors/*') ? 'active' : '' }}"
+                    href="/dashboard/authors">
+                    <span data-feather="users" class="align-text-bottom"></span>
+                    Authors
+                </a>
+            </li>
         </ul>
     </div>
 </nav>

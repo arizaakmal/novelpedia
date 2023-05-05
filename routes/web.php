@@ -9,6 +9,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NovelController;
 use App\Http\Controllers\SignUpController;
 use App\Http\Controllers\DashboardNovelController;
+use App\Http\Controllers\DashboardAuthorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -93,5 +94,16 @@ Route::resource('dashboard/novels', DashboardNovelController::class)->names([
     'update' => 'dashboard.novels.update',
     'destroy' => 'dashboard.novels.destroy',
 ]);
+
+Route::resource('dashboard/authors', DashboardAuthorController::class)->names([
+    'index' => 'dashboard.authors.index',
+    'create' => 'dashboard.authors.create',
+    'store' => 'dashboard.authors.store',
+    'show' => 'dashboard.authors.show',
+    'edit' => 'dashboard.authors.edit',
+    'update' => 'dashboard.authors.update',
+    'destroy' => 'dashboard.authors.destroy',
+]
+);
 
 

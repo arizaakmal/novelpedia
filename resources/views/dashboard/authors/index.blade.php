@@ -2,15 +2,13 @@
 
 @section('container')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Novels</h1>
+        <h1 class="h2">Authors</h1>
     </div>
     {{-- tambahkan button untuk menambahkan novel dengan icon data-feather --}}
-    <a href="/dashboard/novels/create" class="btn btn-primary mb-3">
-        <span data-feather="plus"></span> Create new novel
+    <a href="/dashboard/authors/create" class="btn btn-primary mb-3">
+        <span data-feather="plus"></span> Create new author
     </a>
 
-
-    {{-- <a href="/dashboard/novels/create" class="btn btn-primary mb-3">Create new novel</a> --}}
 
     {{-- tambahkan flash message ketika novel berhasil ditambahkan --}}
     @if (session()->has('success'))
@@ -41,32 +39,28 @@
         <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Title</th>
-                <th scope="col">Author</th>
-                <th scope="col">Genre</th>
+                <th scope="col">Name</th>
+                <th scope="col">Slug</th>
                 <th scope="col">Action</th>
             </tr>
         </thead>
         <tbody>
 
-            @foreach ($novels as $novel)
+            @foreach ($authors as $author)
                 <tr>
                     <th scope="row">{{ $loop->iteration }}</th>
-                    <td>{{ $novel->title }}</td>
-                    <td>{{ $novel->author->name }}</td>
-                    <td>
-                        {{ implode(', ', $novel->genres->pluck('name')->toArray()) }}
-                    </td>
+                    <td>{{ $author->name }}</td>
+                    <td>{{ $author->slug }}</td>
                     <td> <a href="#" class="btn btn-sm btn-primary mr-2">
                             <span data-feather="eye"></span>
                         </a>
                         <a href="#" class="btn btn-sm btn-warning mr-2">
                             <span data-feather="edit"></span>
                         </a>
-                        <form action="{{ route('dashboard.novels.destroy', $novel->slug) }}" method="POST">
+                        <form action="{{ route('dashboard.authors.destroy', $author->slug) }}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" onclick="return confirm('Are you sure you want to delete this novel?')"
+                            <button type="submit" onclick="return confirm('Are you sure you want to delete this author?')"
                                 class="btn btn-sm btn-danger">
                                 <span data-feather="trash-2"></span>
                             </button>

@@ -44,6 +44,11 @@ class DatabaseSeeder extends Seeder
         //make author seeder
         Author::factory(5)->create();
 
+        Author::create([
+            'name' => 'Lucky Old Cat',
+            'slug' => 'lucky-old-cat',
+        ]);
+
         Novel::factory(10)->create();
 
         

@@ -100,6 +100,8 @@ class DashboardAuthorController extends Controller
      */
     public function destroy(Author $author)
     {
-        //
+        Author::destroy($author->id);
+
+        return redirect()->route('dashboard.authors.index')->with('delete', 'The author has been deleted.');
     }
 }

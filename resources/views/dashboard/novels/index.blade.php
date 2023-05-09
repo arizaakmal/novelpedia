@@ -60,7 +60,7 @@
                     <td> <a href="#" class="btn btn-sm btn-primary mr-2">
                             <span data-feather="eye"></span>
                         </a>
-                        <a href="#" class="btn btn-sm btn-warning mr-2">
+                        <a href="{{ route('dashboard.novels.edit', $novel->slug) }}" class="btn btn-sm btn-warning mr-2">
                             <span data-feather="edit"></span>
                         </a>
                         <form action="{{ route('dashboard.novels.destroy', $novel->slug) }}" method="POST">

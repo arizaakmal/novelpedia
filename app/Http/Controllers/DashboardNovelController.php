@@ -102,7 +102,13 @@ class DashboardNovelController extends Controller
      */
     public function edit(Novel $novel)
     {
-        //
+        return view('dashboard.novels.edit', [
+            'authors' => Author::all(),
+            'genres' => Genre::all(),
+            'novels' => Novel::all(),
+            'novelGenres' => $novel->genres->pluck('id')->toArray(),
+            'novel' => $novel
+        ]);
     }
 
     /**

@@ -51,17 +51,28 @@
         <div class="row">
             @foreach ($novels as $novel)
                 <div class="col-md-2">
-                    <div class="card my-3">
-                        @if ($novel->cover)
-                            <img src="{{ asset('storage/covers/' . $novel->cover) }}" class=" card-img-top"
-                                alt="{{ $novel->title }}">
-                        @else
-                            <img src="https://source.unsplash.com/1200x1200?animation" class=" card-img-top"
-                                alt="{{ $novel->title }}">
-                        @endif
+                    <div class="card my-3 h-100">
+                        <div class="position-relative">
+                            @if ($novel->cover)
+                                <img src="{{ asset('storage/covers/' . $novel->cover) }}" class="card-img-top"
+                                    alt="{{ $novel->title }}">
+                            @else
+                                <img src="https://source.unsplash.com/1200x1200?animation" class="card-img-top"
+                                    alt="{{ $novel->title }}">
+                            @endif
+                            <div class="rating position-absolute top-0 start-0 p-1 bg-secondary text-white ">
+                                <i class="fa-solid fa-star" style="color: #eeff00;"></i> 4.5
+                            </div>
+                        </div>
                         <div class="card-body p-2">
                             <h6 class=""><a href="/novel/{{ $novel->slug }}"
-                                    class="text-decoration-none text-dark">{{ substr(strip_tags($novel->title), 0, 30) }}...</a>
+                                    class="text-decoration-none text-dark card-title">
+                                    @if (strlen(strip_tags($novel->title)) <= 30)
+                                        {{ strip_tags($novel->title) }}
+                                    @else
+                                        {{ substr(strip_tags($novel->title), 0, 30) }}...
+                                    @endif
+                                </a>
                             </h6>
                             <p class="card-text ">{{ $novel->author->name }}</p>
                             <p><i class="fa-solid fa-eye mt-2" style="color: #000000;"></i> 10.5K</p>

@@ -1,69 +1,83 @@
 @extends('layouts.main')
 
 @section('content')
-    {{-- Make novel content --}}
 
 
     <div class="container">
-        <div class="row mb-5">
-            <div class="col-6">
-                <div id="carouselExampleAutoplaying" class="carousel slide w-100" data-bs-ride="carousel">
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <img src="{{ asset('img/iklan-burger.jpg') }}" class="img-fluid img-iklan  shadow-md "
-                                alt="iklan">
+        @if ($active == 'home')
+            <div class="row mb-5">
+                <div class="col-6">
+                    <div id="carouselExampleAutoplaying" class="carousel slide w-100" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="{{ asset('img/iklan-burger.jpg') }}" class="img-fluid img-iklan  shadow-md "
+                                    alt="iklan">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="{{ asset('img/iklan-indomie.png') }}" class="img-fluid img-iklan  shadow-md "
+                                    alt="iklan">
+                            </div>
                         </div>
-                        <div class="carousel-item">
-                            <img src="{{ asset('img/iklan-indomie.png') }}" class="img-fluid img-iklan  shadow-md "
-                                alt="iklan">
-                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
+                            data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
+                            data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
                     </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
-                        data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
-                        data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
+                </div>
+                <div class="col-3">
+                    <img src="{{ asset('img/pocari.jpg') }}" class="img-fluid img-iklan pocari shadow-md w-100 "
+                        alt="iklan">
+                </div>
+                <div class="col-3">
+                    <img src="{{ asset('img/sepeda.jpg') }}" class="img-fluid img-iklan sepeda shadow-md w-100 "
+                        alt="iklan">
                 </div>
             </div>
-            <div class="col-3">
-                <img src="{{ asset('img/pocari.jpg') }}" class="img-fluid img-iklan pocari shadow-md w-100 " alt="iklan">
-            </div>
-            <div class="col-3">
-                <img src="{{ asset('img/sepeda.jpg') }}" class="img-fluid img-iklan sepeda shadow-md w-100 " alt="iklan">
-            </div>
-        </div>
-        {{-- Buat garis vertikal di sebelah kiri h2 --}}
-        <div class="row">
-            <div class="col-12">
-                <div class="d-flex justify-content-start">
-                    <div class="line me-2"></div>
-                    <h2 class="text-center">Hot Novel</h2>
+            {{-- Buat garis vertikal di sebelah kiri h2 --}}
+            <div class="row">
+                <div class="col-12">
+                    <div class="d-flex justify-content-start">
+                        <div class="line me-2"></div>
+                        <h2 class="text-center">Hot Novel</h2>
+                    </div>
                 </div>
             </div>
-        </div>
+        @endif
+
+        @if ($active == 'cari')
+            <div class="row">
+                <div class="col-12">
+                    <div class="d-flex justify-content-start">
+                        <div class="line me-2"></div>
+                        <h2 class="text-center">Hasil Pencarian</h2>
+                    </div>
+                </div>
+            </div>
+        @endif
+
         {{-- <h2 class="">{{ $title }}</h2> --}}
 
         <div class="row">
             @foreach ($novels as $novel)
                 <div class="col-md-2">
                     <div class="card my-3 h-100">
-                        <div class="position-relative">
-                            @if ($novel->cover)
-                                <img src="{{ asset('storage/covers/' . $novel->cover) }}" class="card-img-top"
-                                    alt="{{ $novel->title }}">
-                            @else
-                                <img src="https://source.unsplash.com/1200x1200?animation" class="card-img-top"
-                                    alt="{{ $novel->title }}">
-                            @endif
-                            <div class="rating position-absolute top-0 start-0 p-1 bg-secondary text-white ">
-                                <i class="fa-solid fa-star" style="color: #eeff00;"></i> 4.5
-                            </div>
+                        @if ($novel->cover)
+                            <img src="{{ asset('storage/covers/' . $novel->cover) }}" class="card-img-top position-relative"
+                                alt="{{ $novel->title }}">
+                        @else
+                            <img src="https://source.unsplash.com/1200x1200?animation"
+                                class="card-img-top position-relative" alt="{{ $novel->title }}">
+                        @endif
+                        <div class="rating bg-opacity-75 position-absolute top-0 start-0 p-1 bg-secondary text-white ">
+                            <i class="fa-solid fa-star" style="color: #eeff00;"></i> 4.5
                         </div>
+
                         <div class="card-body p-2">
                             <h6 class=""><a href="/novel/{{ $novel->slug }}"
                                     class="text-decoration-none text-dark card-title">
@@ -81,23 +95,13 @@
                     </div>
                 </div>
             @endforeach
-
-            @if ($active == 'cari')
-            @else
-                {{-- <div class="col-md-12">
-                    <div class="d-flex justify-content-center">
-                        {{ $novels->links() }}
-                    </div>
-                </div> --}}
-            @endif
         </div>
-
     </div>
 
     @if ($active == 'cari')
     @else
         <div class="container mt-5">
-            <h2>Hot Novel</h2>
+            <h2>Tes Novel</h2>
             <div class="row">
                 @foreach ($novels as $novel)
                     <div class="col-md-3">

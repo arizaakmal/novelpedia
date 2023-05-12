@@ -22,6 +22,7 @@ class NovelController extends Controller
 
 
         $title = 'Hot Novel';
+        $genres = Genre::all();
 
 
         if (request('genre')) {
@@ -37,7 +38,9 @@ class NovelController extends Controller
             'title' => $title,
             'active' => 'home',
             'novels' => $novels,
+            'genres' => $genres,
             'genre' => $genre
+            
         ]);
 
 

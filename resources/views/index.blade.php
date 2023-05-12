@@ -1,8 +1,6 @@
 @extends('layouts.main')
 
 @section('content')
-
-
     <div class="container">
         @if ($active == 'home')
             <div class="row mb-5">
@@ -98,27 +96,63 @@
         </div>
     </div>
 
-    @if ($active == 'cari')
-    @else
-        <div class="container mt-5">
-            <h2>Tes Novel</h2>
-            <div class="row">
-                @foreach ($novels as $novel)
-                    <div class="col-md-3">
-                        <div class="card my-3" style="width: 18rem;">
-                            <img src="https://source.unsplash.com/1200x1200?animation" class="card-img-top"
-                                alt="{{ $novel->title }}">
-                            <div class="card-body">
-                                <h5> <a href="/novel/{{ $novel->slug }}"
-                                        class="text-decoration-none">{{ $novel->title }}</a>
-                                </h5>
-                                <p class="card-text">{{ substr(strip_tags($novel->description), 0, 50) }}...</p>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex justify-content-start">
+                    <div class="line me-2"></div>
+                    <h2 class="text-center">Popular Genres</h2>
+                </div>
             </div>
         </div>
-    @endif
 
+
+        <div class="row mt-3">
+            @foreach ($genres as $genre)
+                <div class="col-md-4">
+                    <div class="card card-genre bg-gradient-radial rounded-lg border-none mb-5" style="width: 300px;">
+                        <div class="card-body card-body-genre w-100 text-center">
+                            <h5 class="card-title text-white">{{ $genre->name }}</h5>
+                            <img src="{{ asset('storage/covers/' . $novels[0]->cover) }}"
+                                class="card-img card-img-genre mb-2" alt="{{ $novels[0]->title }}" style="width: 150px">
+                            <h6 class="card-subtitle mb-2">{{ $novels[0]->title }}</h6>
+                            <p class="card-description">
+                                @if (strlen(strip_tags($novels[0]->description)) <= 30)
+                                    {{ strip_tags($novels[0]->description) }}
+                                @else
+                                    {{ substr(strip_tags($novels[0]->description), 0, 30) }}...
+                                @endif
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+
+        {{-- <div class="row">
+            @foreach ($novels as $novel)
+                <div class="col-md-3">
+                    <div class="card my-3" style="width: 18rem;">
+                        <img src="https://source.unsplash.com/1200x1200?animation" class="card-img-top"
+                            alt="{{ $novel->title }}">
+                        <div class="card-body">
+                            <h5> <a href="/novel/{{ $novel->slug }}" class="text-decoration-none">{{ $novel->title }}</a>
+                            </h5>
+                            <p class="card-text">{{ substr(strip_tags($novel->description), 0, 50) }}...</p>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div> --}}
+    </div>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex justify-content-start">
+                    <div class="line me-2"></div>
+                    <h2 class="text-center">Top Novel</h2>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

@@ -23,6 +23,7 @@ class User extends Authenticatable
         'username',
         'email',
         'password',
+        'role',
     ];
 
     protected $guarded = ['id'];
@@ -53,4 +54,11 @@ class User extends Authenticatable
 
         return $this;
     }
+
+    //jika user adalah admin
+    public function isAdmin()
+    {
+        return $this->role == 'admin';
+    }
+
 }

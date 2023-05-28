@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\Console\Input\Input;
+use App\Models\User;
 
 
 
@@ -29,7 +30,11 @@ class LoginController extends Controller
             'password' => ['required'],
         ]);
 
-        if (Auth::attempt($credentials)) {
+        $user = User::where('email', $credentials['email'])->first();
+
+
+        if ($user && password_verify($credentials['password'], $user->password)) {
+            Auth::login($user);
             $request->session()->regenerate();
 
             return redirect()->intended('/')->with('success', 'Anda berhasil login.');
@@ -40,11 +45,12 @@ class LoginController extends Controller
         ]);
     }
 
+
     public function logout(Request $request)
     {
         Auth::logout();
         $request->session()->flush();
 
-        return redirect('/login')->with('success', 'Anda berhasil logout.');
+        return redirect('/')->with('success', 'Anda berhasil logout.');
     }
 }

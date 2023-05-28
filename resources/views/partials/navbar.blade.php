@@ -1,5 +1,5 @@
 {{-- Navbar --}}
-<nav class="navbar navbar-expand-lg mb-5 ">
+<nav class="navbar navbar-expand-lg">
     <div class="container-fluid ms-5">
         <a class="navbar-brand " href="/">Novelpedia</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -18,19 +18,6 @@
                 <li class="nav-item">
                     <a class="nav-link {{ $active === 'genre' ? 'active' : '' }}" href="/genre">Genre</a>
                 </li>
-                {{-- <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="/genre" role="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        Genre
-                    </a>
-                    <ul class="dropdown-menu">
-                        @foreach ($genres as $genre)
-                            <li><a class="dropdown-item" href="/genre/{{ $genre->slug }}">{{ $genre->name }}</a></li>
-                        @endforeach
-                        {{-- <li><a class="dropdown-item" href="/genre/action">Action</a></li>
-                        <li><a class="dropdown-item" href="/genre/adventure">Adventure</a></li>
-                        <li><a class="dropdown-item" href="/genre/romance">Romance</a></li>
-                        <li><a class="dropdown-item" href="/genre/slice-of-life">Slice of Life</a></li> --}}
             </ul>
 
             <form class=" d-flex " role="search" action="/cari" method="GET">
@@ -46,11 +33,14 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
-                            Welcome, {{ Auth::user()->name }}
+                            Welcome, {{ explode(' ', Auth::user()->name)[0] }}
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="{{ route('profile') }}">Profile</a>
                             </li>
+                            @if (Auth::user()->isAdmin())
+                                <li><a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a></li>
+                            @endif
                             <li><a class="dropdown-item" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();document.getElementById('logout-form').submit();">Log
                                     out

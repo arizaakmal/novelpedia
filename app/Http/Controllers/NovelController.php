@@ -28,10 +28,10 @@ class NovelController extends Controller
         if (request('genre')) {
             $genre = Genre::where('slug', request('genre'))->first();
             $title = 'Genre: ' . $genre->name;
-            $novels = $genre->novels()->latest()->paginate(6);
+            $novels = $genre->novels()->latest()->orderBy('id', 'desc')->paginate(6);
         } else {
             $genre = null;
-            $novels = Novel::latest()->filter(request(['search']))->paginate(6)->withQueryString();
+            $novels = Novel::latest()->orderBy('id', 'desc')->filter(request(['search']))->paginate(6)->withQueryString();
         }
 
         return view('index', [

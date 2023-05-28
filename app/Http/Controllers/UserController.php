@@ -131,37 +131,9 @@ class UserController extends Controller
             return redirect()->intended(route('home'));
         }
 
-        //if successful, redirect to intended page
-
-        //if unsuccessful, redirect back to login page with errors
     }
 
-    // public function savePassword(Request $request, $id)
-    // {
-    //     // Validate input data
-    //     $validatedData = $this->validate($request, [
-    //         'password' => 'required|min:6',
-    //         'new_password' => 'required|min:6|confirmed'
-    //     ]);
-
-    //     // Get current user
-    //     $user = Auth::user();
-
-    //     // Check if provided password is correct
-    //     if (Hash::check($validatedData['password'], $user->password)) {
-    //         $user = User::find(auth()->user()->id);
-    //         // Update password
-    //         $user->password = Hash::make($validatedData['new_password']);
-    //         $user->save();
-
-    //         // Redirect back with success message
-    //         return back()->with('success', 'Password has been changed!');
-    //     }
-
-    //     // Redirect back with error message
-    //     return back()->with('error', 'Incorrect password');
-    // }
-
+ 
     public function changePassword(Request $request)
     {
 
@@ -189,8 +161,6 @@ class UserController extends Controller
 
         // Save user
         $user->save();
-
-
 
         // Redirect with success message
         return redirect()->back()->with('success', 'Password berhasil diubah');

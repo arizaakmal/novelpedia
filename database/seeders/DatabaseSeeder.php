@@ -7,6 +7,7 @@ namespace Database\Seeders;
 use App\Models\Author;
 use App\Models\Genre;
 use App\Models\Novel;
+use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 
@@ -19,38 +20,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        //make genre seeder
-
-        $genres = [
-            'Action',
-            'Adventure',
-            'Comedy',
-            'Drama',
-            'Fantasy',
-            'Horror',
-            'Mystery',
-            'Romance',
-            'Thriller',
-            'Western',
-        ];
-
-        foreach ($genres as $genre) {
-            Genre::create([
-                'name' => $genre,
-                'slug' => Str::slug($genre),
-            ]);
-        }
-
-        //make author seeder
-        Author::factory(5)->create();
-
-        Author::create([
-            'name' => 'Lucky Old Cat',
-            'slug' => 'lucky-old-cat',
-        ]);
-
-        Novel::factory(10)->create();
-
-        
+        $this->call(AuthorSeeder::class);
+        $this->call(GenreSeeder::class);
+        $this->call(NovelSeeder::class);
+        $this->call(UserSeeder::class);
     }
 }

@@ -83,7 +83,7 @@ Route::get('/novel/{novel:slug}', [NovelController::class, 'show']);
 
 Route::get('/dashboard', function () {
     return view('dashboard.index', ['title' => 'Dashboard', 'active' => 'dashboard']);
-});
+})->middleware('admin')->name('dashboard');
 
 Route::resource('dashboard/novels', DashboardNovelController::class)->names([
     'index' => 'dashboard.novels.index',

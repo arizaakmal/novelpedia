@@ -1,3 +1,7 @@
+@section('styles')
+    <link href="{{ asset('css/profile.css') }}" rel="stylesheet">
+@endsection
+
 @extends('layouts.main')
 
 @section('content')
@@ -6,7 +10,11 @@
             <h1>{{ $title }}</h1>
             <div class="col-sm-3">
                 <!-- Profile picture -->
-                <img src="{{ asset($user->profile_picture) }}" class="img-fluid rounded-circle w-75" alt="Profile Picture">
+                {{-- <img src="{{ asset($user->profile_picture) }}" class="img-fluid rounded-circle w-75" alt="Profile Picture"> --}}
+                {{-- <div class="profile-placeholder">{{ substr(Auth::user()->name, 0, 1) }}</div> --}}
+                <div class="circle mt-3">
+                    <span class="initial">{{ substr(Auth::user()->name, 0, 1) }}</span>
+                </div>
             </div>
             <div class="col-sm-9">
                 <!-- User information -->

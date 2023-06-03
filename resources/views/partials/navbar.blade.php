@@ -1,7 +1,7 @@
 {{-- Navbar --}}
 <nav class="navbar navbar-expand-lg">
     <div class="container-fluid ms-5">
-        <a class="navbar-brand " href="/">Novelpedia</a>
+        <a class="navbar-brand" href="/">Novelpedia</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -24,7 +24,7 @@
                 <div class="search-box me-2">
                     <input class="form-control " type="search" name="keywords" placeholder="Cari Novel"
                         aria-label="Search">
-                    <span class="fa fa-search"></span>
+                    <button class="fa fa-search btn btn-unstyled px-1" type="submit"></button>
                 </div>
                 {{-- <button class="btn btn-outline-primary " type="submit">Search</button> --}}
             </form>

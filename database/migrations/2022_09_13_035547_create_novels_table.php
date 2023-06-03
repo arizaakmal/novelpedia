@@ -17,6 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->foreignId('author_id');
+            $table->unsignedInteger('views')->default(0);
+            $table->unsignedInteger('pages')->default(0);
+            $table->decimal('rating', 3, 1)->default(0);
             $table->string('slug')->unique();
             $table->text('description');
             $table->string('cover')->nullable();

@@ -42,10 +42,6 @@ class NovelController extends Controller
             'genre' => $genre
             
         ]);
-
-
-        // $novels = Novel::latest()->paginate(10);
-        // return view('index', ['title' => 'Home', 'active' => 'home', 'novels' => $novels]);
     }
 
     /**
@@ -90,11 +86,7 @@ class NovelController extends Controller
     public function show(Novel $novel)
     {
         return view('novel', ['title' => 'novel', 'active' => 'novel', 'novel' => $novel]);
-        // return view('novel', [
-        //     'title' => 'Single Novel',
-        //     "active" => 'posts',
-        //     'novel' => $novel
-        // ]);
+     
     }
 
     /**

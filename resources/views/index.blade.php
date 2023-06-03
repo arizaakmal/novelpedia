@@ -1,3 +1,30 @@
+@section('styles')
+    <link rel="stylesheet" href="{{ asset('css/package/splide.min.css') }}">
+@endsection
+
+@section('script')
+    <script src="{{ asset('js/package/splide.min.js') }}"></script>
+    <script>
+        new Splide('.splide', {
+            type: 'loop',
+            padding: '75px',
+            perPage: 3,
+            perMove: 1,
+            autoplay: true,
+            lazyLoad: 'nearby',
+            interval: 3000,
+            breakpoints: {
+                992: {
+                    perPage: 2,
+                },
+                768: {
+                    perPage: 1,
+                },
+            }
+        }).mount();
+    </script>
+@endsection
+
 @extends('layouts.main')
 
 @section('content')
@@ -7,20 +34,28 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
+
     <div class="container mt-5">
         @if ($active == 'home')
             <div class="row mb-5">
                 <div class="col-6">
                     <div id="carouselExampleAutoplaying" class="carousel slide w-100" data-bs-ride="carousel">
                         <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img src="{{ asset('img/iklan-burger.jpg') }}" class="img-fluid img-iklan  shadow-md "
-                                    alt="iklan">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="{{ asset('img/iklan-indomie.png') }}" class="img-fluid img-iklan  shadow-md "
-                                    alt="iklan">
-                            </div>
+                            <a href="https://mcdonalds.co.id/" target="_blank">
+                                <div class="carousel-item active img card">
+                                    {{-- <img src="{{ asset('img/iklan-burger.jpg') }}" class="img-fluid img-iklan" alt="iklan"> --}}
+
+                                    <img src="{{ asset('img/iklan-burger.jpg') }}" class="img-fluid img-iklan"
+                                        alt="iklan">
+
+                                </div>
+                            </a>
+                            <a href="https://www.indomie.com/" target="_blank">
+                                <div class="carousel-item img card">
+                                    <img src="{{ asset('img/iklan-indomie.png') }}" class="img-fluid img-iklan"
+                                        alt="iklan">
+                                </div>
+                            </a>
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
                             data-bs-slide="prev">
@@ -35,12 +70,21 @@
                     </div>
                 </div>
                 <div class="col-3">
-                    <img src="{{ asset('img/pocari.jpg') }}" class="img-fluid img-iklan pocari shadow-md w-100 "
-                        alt="iklan">
+                    <a href="https://www.pocarisweat.id/" target="_blank">
+                        <div class="img cover-img">
+                            <img src="{{ asset('img/pocari.jpg') }}" class="img-fluid img-iklan pocari w-100 "
+                                alt="iklan">
+                        </div>
+                    </a>
                 </div>
                 <div class="col-3">
-                    <img src="{{ asset('img/sepeda.jpg') }}" class="img-fluid img-iklan sepeda shadow-md w-100 "
-                        alt="iklan">
+                    <a href="https://www.tokopedia.com/idachiofficial/alat-fitness-sepeda-statis-elektrik-idachi-upright-bike-id-01b?extParam=ivf%3Dfalse%26src%3Dsearch"
+                        target="_blank">
+                        <div class="img cover-img">
+                            <img src="{{ asset('img/sepeda.jpg') }}" class="img-fluid img-iklan sepeda w-100 "
+                                alt="iklan">
+                        </div>
+                    </a>
                 </div>
             </div>
             {{-- Buat garis vertikal di sebelah kiri h2 --}}
@@ -70,20 +114,26 @@
         <div class="row">
             @foreach ($novels as $novel)
                 <div class="col-md-2">
-                    <div class="card my-3 h-100">
-                        @if ($novel->cover)
-                            <img src="{{ asset('storage/covers/' . $novel->cover) }}" class="card-img-top position-relative"
-                                alt="{{ $novel->title }}">
-                        @else
-                            <img src="https://source.unsplash.com/1200x1200?animation"
-                                class="card-img-top position-relative" alt="{{ $novel->title }}">
-                        @endif
-                        <div class="rating bg-opacity-75 position-absolute top-0 start-0 p-1 bg-secondary text-white ">
-                            <i class="fa-solid fa-star" style="color: #eeff00;"></i> 4.5
+                    <div class="card my-3 h-100 shadow-sm">
+                        <div class="img">
+                            <a href="/novel/{{ $novel->slug }}">
+                                @if ($novel->cover)
+                                    <img src="{{ asset('storage/covers/' . $novel->cover) }}"
+                                        class="card-img-top position-relative" alt="{{ $novel->title }}">
+                                @else
+                                    <img src="https://source.unsplash.com/1200x1200?animation"
+                                        class="card-img-top position-relative" alt="{{ $novel->title }}">
+                                @endif
+                            </a>
+                        </div>
+                        <div
+                            class="rating bg-opacity-75 position-absolute top-0 start-0  bg-secondary text-white text-center">
+                            <i class="fa-solid fa-star" style="color: #eeff00;"></i>
+                            {{ $novel->rating == floor($novel->rating) ? floor($novel->rating) : $novel->rating }}
                         </div>
 
                         <div class="card-body p-2">
-                            <h6 class=""><a href="/novel/{{ $novel->slug }}"
+                            <h6 class="text-decoration-none-hover"><a href="/novel/{{ $novel->slug }}"
                                     class="text-decoration-none text-dark card-title">
                                     @if (strlen(strip_tags($novel->title)) <= 30)
                                         {{ strip_tags($novel->title) }}
@@ -93,72 +143,95 @@
                                 </a>
                             </h6>
                             <p class="card-text ">{{ $novel->author->name }}</p>
-                            <p><i class="fa-solid fa-eye mt-2" style="color: #000000;"></i> 10.5K</p>
-                            <p><i class="fa-solid fa-bars mt-2" style="color: #000000;"></i> 215 Page</p>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
-        </div>
-    </div>
-
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-12">
-                <div class="d-flex justify-content-start">
-                    <div class="line me-2"></div>
-                    <h2 class="text-center">Popular Genres</h2>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="row mt-3">
-            @foreach ($genres as $genre)
-                <div class="col-md-4">
-                    <div class="card card-genre bg-gradient-radial rounded-lg border-none mb-5" style="width: 300px;">
-                        <div class="card-body card-body-genre w-100 text-center">
-                            <h5 class="card-title text-white">{{ $genre->name }}</h5>
-                            <img src="{{ asset('storage/covers/' . $novels[0]->cover) }}"
-                                class="card-img card-img-genre mb-2" alt="{{ $novels[0]->title }}" style="width: 150px">
-                            <h6 class="card-subtitle mb-2">{{ $novels[0]->title }}</h6>
-                            <p class="card-description">
-                                @if (strlen(strip_tags($novels[0]->description)) <= 30)
-                                    {{ strip_tags($novels[0]->description) }}
+                            <p><i class="fa-solid fa-eye mt-2" style="color: #000000;"></i>
+                                @if ($novel->views >= 1000000000)
+                                    {{ round($novel->views / 1000000000, 1) }}B
+                                @elseif ($novel->views >= 1000000)
+                                    {{ round($novel->views / 1000000, 1) }}M
+                                @elseif ($novel->views >= 1000)
+                                    {{ round($novel->views / 1000, 1) }}K
                                 @else
-                                    {{ substr(strip_tags($novels[0]->description), 0, 30) }}...
+                                    {{ $novel->views }}
                                 @endif
                             </p>
+                            <p><i class="fa-solid fa-bars mt-2" style="color: #000000;"></i> {{ $novel->pages }} Pages</p>
                         </div>
                     </div>
                 </div>
             @endforeach
         </div>
+    </div>
 
-        {{-- <div class="row">
-            @foreach ($novels as $novel)
-                <div class="col-md-3">
-                    <div class="card my-3" style="width: 18rem;">
-                        <img src="https://source.unsplash.com/1200x1200?animation" class="card-img-top"
-                            alt="{{ $novel->title }}">
-                        <div class="card-body">
-                            <h5> <a href="/novel/{{ $novel->slug }}" class="text-decoration-none">{{ $novel->title }}</a>
-                            </h5>
-                            <p class="card-text">{{ substr(strip_tags($novel->description), 0, 50) }}...</p>
-                        </div>
+    @if ($active != 'cari')
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-12">
+                    <div class="d-flex justify-content-start">
+                        <div class="line me-2"></div>
+                        <h2 class="text-center">Popular Genres</h2>
                     </div>
                 </div>
-            @endforeach
-        </div> --}}
-    </div>
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-12">
-                <div class="d-flex justify-content-start">
-                    <div class="line me-2"></div>
-                    <h2 class="text-center">Top Novel</h2>
+            </div>
+            <div class="splide mt-3" role="group" aria-label="Splide Basic HTML Example">
+                <div class="splide__track">
+                    <ul class="splide__list">
+                        @foreach ($genres as $genre)
+                            <li class="splide__slide">
+                                <div class="card card-genre bg-gradient-radial rounded-lg border-none mb-5"
+                                    style="width: 300px;">
+                                    <div class="card-body card-body-genre w-100 text-center">
+                                        <h5 class="card-title text-white mb-3">{{ $genre->name }}</h5>
+                                        <img src="{{ asset('storage/covers/' . $novels[0]->cover) }}"
+                                            class="card-img card-img-genre mb-3 shadow-lg" alt="{{ $novels[0]->title }}"
+                                            style="width: 120px">
+                                        <h6 class="card-subtitle mb-2">{{ $novels[0]->title }}</h6>
+                                        <p class="card-description">
+                                            @if (strlen(strip_tags($novels[0]->description)) <= 80)
+                                                {{ strip_tags($novels[0]->description) }}
+                                            @else
+                                                {{ substr(strip_tags($novels[0]->description), 0, 80) }}...
+                                            @endif
+                                        </p>
+                                    </div>
+                                </div>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+            <div class="row mt-3">
+                @foreach ($genres as $genre)
+                    <div class="col-md-4">
+                        <div class="card card-genre bg-gradient-radial rounded-lg border-none mb-5" style="width: 300px;">
+                            <div class="card-body card-body-genre w-100 text-center">
+                                <h5 class="card-title text-white mb-3">{{ $genre->name }}</h5>
+                                <img src="{{ asset('storage/covers/' . $novels[0]->cover) }}"
+                                    class="card-img card-img-genre mb-3" alt="{{ $novels[0]->title }}"
+                                    style="width: 120px">
+                                <h6 class="card-subtitle mb-2">{{ $novels[0]->title }}</h6>
+                                <p class="card-description">
+                                    @if (strlen(strip_tags($novels[0]->description)) <= 80)
+                                        {{ strip_tags($novels[0]->description) }}
+                                    @else
+                                        {{ substr(strip_tags($novels[0]->description), 0, 80) }}...
+                                    @endif
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+
+        </div>
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-12">
+                    <div class="d-flex justify-content-start">
+                        <div class="line me-2"></div>
+                        <h2 class="text-center">Top Novel</h2>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    @endif
 @endsection

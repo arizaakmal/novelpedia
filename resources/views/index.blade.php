@@ -7,7 +7,10 @@
     <script>
         new Splide('.splide', {
             type: 'loop',
-            padding: '75px',
+            arrows: false,
+            padding: {
+                right: '5rem'
+            },
             perPage: 3,
             perMove: 1,
             autoplay: true,
@@ -174,64 +177,145 @@
             </div>
             <div class="splide mt-3" role="group" aria-label="Splide Basic HTML Example">
                 <div class="splide__track">
-                    <ul class="splide__list">
+                    <ul class="splide__list ">
                         @foreach ($genres as $genre)
-                            <li class="splide__slide">
-                                <div class="card card-genre bg-gradient-radial rounded-lg border-none mb-5"
-                                    style="width: 300px;">
-                                    <div class="card-body card-body-genre w-100 text-center">
-                                        <h5 class="card-title text-white mb-3">{{ $genre->name }}</h5>
-                                        <img src="{{ asset('storage/covers/' . $novels[0]->cover) }}"
-                                            class="card-img card-img-genre mb-3 shadow-lg" alt="{{ $novels[0]->title }}"
-                                            style="width: 120px">
-                                        <h6 class="card-subtitle mb-2">{{ $novels[0]->title }}</h6>
-                                        <p class="card-description">
-                                            @if (strlen(strip_tags($novels[0]->description)) <= 80)
-                                                {{ strip_tags($novels[0]->description) }}
-                                            @else
-                                                {{ substr(strip_tags($novels[0]->description), 0, 80) }}...
-                                            @endif
-                                        </p>
+                            @if ($genre->novels()->exists())
+                                @php
+                                    $novel = $genre->novels()->first();
+                                    $color = '#' . bin2hex(random_bytes(3));
+                                @endphp
+                                <li class="splide__slide ">
+                                    <div class="card card-genre bg-gradient-radial rounded-lg border-none mb-5"
+                                        style="width: 300px;">
+                                        <div class="card-body card-body-genre w-100 text-center"
+                                            style="background: radial-gradient(
+                                            26230.73% 100% at 49.87% 103.24%,
+                                            #fff0fd 0.01%,
+                                            {{ $color }} 67.19%,
+                                            {{ $color }} 100%
+                                        );">
+                                            <h5 class="card-title text-white mb-3">{{ $genre->name }}</h5>
+                                            <a href="/novel/{{ $novel->slug }}">
+                                                <img src="{{ asset('storage/covers/' . $novel->cover) }}"
+                                                    class="card-img card-img-genre mb-3 shadow-lg"
+                                                    alt="{{ $novel->title }}" style="width: 120px">
+                                            </a>
+                                            <a href="/novel/{{ $novel->slug }}" class="text-decoration-none ">
+                                                <h6 class="card-subtitle mb-2 text-decoration-none-hover">
+                                                    {{ $novel->title }}
+                                                </h6>
+                                            </a>
+                                            <p class="card-description">
+                                                @if (strlen(strip_tags($novel->description)) <= 80)
+                                                    {{ strip_tags($novel->description) }}
+                                                @else
+                                                    {{ substr(strip_tags($novel->description), 0, 80) }}...
+                                                @endif
+                                            </p>
+                                        </div>
                                     </div>
-                                </div>
-                            </li>
+                                </li>
+                            @endif
                         @endforeach
                     </ul>
+
                 </div>
             </div>
-            <div class="row mt-3">
-                @foreach ($genres as $genre)
-                    <div class="col-md-4">
-                        <div class="card card-genre bg-gradient-radial rounded-lg border-none mb-5" style="width: 300px;">
-                            <div class="card-body card-body-genre w-100 text-center">
-                                <h5 class="card-title text-white mb-3">{{ $genre->name }}</h5>
-                                <img src="{{ asset('storage/covers/' . $novels[0]->cover) }}"
-                                    class="card-img card-img-genre mb-3" alt="{{ $novels[0]->title }}"
-                                    style="width: 120px">
-                                <h6 class="card-subtitle mb-2">{{ $novels[0]->title }}</h6>
-                                <p class="card-description">
-                                    @if (strlen(strip_tags($novels[0]->description)) <= 80)
-                                        {{ strip_tags($novels[0]->description) }}
+        </div>
+        <div class="container mb-5">
+            <div class="row">
+                <div class="col-12">
+                    <div class="d-flex justify-content-start">
+                        <div class="line me-2"></div>
+                        <h2 class="text-center">Top Rated</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                @foreach ($novelsByRating as $novel)
+                    <div class="col-md-2">
+                        <div class="card my-3 h-100 shadow-sm">
+                            <div class="img">
+                                <a href="/novel/{{ $novel->slug }}">
+                                    @if ($novel->cover)
+                                        <img src="{{ asset('storage/covers/' . $novel->cover) }}"
+                                            class="card-img-top position-relative" alt="{{ $novel->title }}">
                                     @else
-                                        {{ substr(strip_tags($novels[0]->description), 0, 80) }}...
+                                        <img src="https://source.unsplash.com/1200x1200?animation"
+                                            class="card-img-top position-relative" alt="{{ $novel->title }}">
+                                    @endif
+                                </a>
+                            </div>
+                            <div
+                                class="rating bg-opacity-75 position-absolute top-0 start-0  bg-secondary text-white text-center">
+                                <i class="fa-solid fa-star" style="color: #eeff00;"></i>
+                                {{ $novel->rating == floor($novel->rating) ? floor($novel->rating) : $novel->rating }}
+                            </div>
+
+                            <div class="card-body p-2">
+                                <h6 class="text-decoration-none-hover"><a href="/novel/{{ $novel->slug }}"
+                                        class="text-decoration-none text-dark card-title">
+                                        @if (strlen(strip_tags($novel->title)) <= 30)
+                                            {{ strip_tags($novel->title) }}
+                                        @else
+                                            {{ substr(strip_tags($novel->title), 0, 30) }}...
+                                        @endif
+                                    </a>
+                                </h6>
+                                <p class="card-text ">{{ $novel->author->name }}</p>
+                                <p><i class="fa-solid fa-eye mt-2" style="color: #000000;"></i>
+                                    @if ($novel->views >= 1000000000)
+                                        {{ round($novel->views / 1000000000, 1) }}B
+                                    @elseif ($novel->views >= 1000000)
+                                        {{ round($novel->views / 1000000, 1) }}M
+                                    @elseif ($novel->views >= 1000)
+                                        {{ round($novel->views / 1000, 1) }}K
+                                    @else
+                                        {{ $novel->views }}
                                     @endif
                                 </p>
+                                <p><i class="fa-solid fa-bars mt-2" style="color: #000000;"></i> {{ $novel->pages }}
+                                    Pages</p>
                             </div>
                         </div>
                     </div>
                 @endforeach
             </div>
-
         </div>
-        <div class="container mt-5">
+        <div class="container">
             <div class="row">
                 <div class="col-12">
                     <div class="d-flex justify-content-start">
                         <div class="line me-2"></div>
-                        <h2 class="text-center">Top Novel</h2>
+                        <h2 class="text-center">Recently Update</h2>
                     </div>
                 </div>
             </div>
+            <table class="table table-striped text-center">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Cover</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Author</th>
+                        <th scope="col">Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($novels as $index => $novel)
+                        <tr>
+                            <th scope="row">{{ $index + 1 }}</th>
+                            <td><a href="/novel/{{ $novel->slug }}" class="text-decoration-none"><img
+                                        src="{{ asset('storage/covers/' . $novel->cover) }}" alt="Gambar Novel"
+                                        style="height: 100px;width:65px"></a></td>
+                            <td class="text-decoration-none-hover"><a href="/novel/{{ $novel->slug }}"
+                                    class="text-decoration-none text-dark ">{{ $novel->title }}</a></td>
+                            <td>{{ $novel->author->name }}</td>
+                            <td class="fw-light">{{ $novel->created_at->diffForHumans() }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     @endif
 @endsection

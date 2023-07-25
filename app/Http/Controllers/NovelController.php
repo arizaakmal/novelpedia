@@ -31,6 +31,7 @@ class NovelController extends Controller
             $novels = $genre->novels()->latest()->orderBy('id', 'desc')->paginate(6);
         } else {
             $genre = null;
+            $novelsByRating = Novel::orderBy('rating', 'desc')->get()->take(6);
             $novels = Novel::latest()->orderBy('id', 'desc')->filter(request(['search']))->paginate(6)->withQueryString();
         }
 
@@ -38,9 +39,10 @@ class NovelController extends Controller
             'title' => $title,
             'active' => 'home',
             'novels' => $novels,
+            'novelsByRating' => $novelsByRating,
             'genres' => $genres,
             'genre' => $genre
-            
+
         ]);
     }
 
@@ -86,7 +88,6 @@ class NovelController extends Controller
     public function show(Novel $novel)
     {
         return view('novel', ['title' => 'novel', 'active' => 'novel', 'novel' => $novel]);
-     
     }
 
     /**

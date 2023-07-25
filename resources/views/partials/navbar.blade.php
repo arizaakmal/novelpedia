@@ -57,15 +57,8 @@
                 <form action="" class=" d-flex">
                     <button class=" btn btn-success btn-login "><a class="nav-link" href="/login">Log
                             In</a></button>
-                    {{-- <button class=" btn btn-primary ms-2  "><a class="nav-link" href="/signUp">Sign Up</a></button> --}}
                 </form>
             @endif
-
-
-
-            {{-- <button class="btn btn-success ms-3" type="submit">Login</button>
-            <button class="btn btn-primary ms-3" type="submit">Sign Up</button> --}}
-
         </div>
     </div>
 </nav>

@@ -1,3 +1,25 @@
 .btn:hover {
     opacity: 0.9;
 }
+
+.toggle_btn {
+    cursor: pointer;
+}
+
+.description:before {
+    content: "";
+    position: absolute;
+    top: 8px;
+    left: -12px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #bfbfbf;
+}
+
+.description.active {
+    height: auto;
+}
+.toggle_btn.active .fa-chevron-down {
+    transform: rotate(180deg);
+}

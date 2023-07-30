@@ -42,23 +42,21 @@
         @if ($active == 'home')
             <div class="row mb-5">
                 <div class="col-6">
-                    <div id="carouselExampleAutoplaying" class="carousel slide w-100" data-bs-ride="carousel">
-                        <div class="carousel-inner">
-                            <a href="https://mcdonalds.co.id/" target="_blank">
-                                <div class="carousel-item active img card">
-                                    {{-- <img src="{{ asset('img/iklan-burger.jpg') }}" class="img-fluid img-iklan" alt="iklan"> --}}
-
+                    <div id="carouselExampleAutoplaying" class="carousel slide w-100 " data-bs-ride="carousel">
+                        <div class="carousel-inner ">
+                            <div class="carousel-item active img card ">
+                                <a href="https://mcdonalds.co.id/" target="_blank">
                                     <img src="{{ asset('img/iklan-burger.jpg') }}" class="img-fluid img-iklan"
                                         alt="iklan">
-
-                                </div>
-                            </a>
-                            <a href="https://www.indomie.com/" target="_blank">
-                                <div class="carousel-item img card">
+                                </a>
+                            </div>
+                            <div class="carousel-item img card ">
+                                <a href="https://www.indomie.com/" target="_blank">
                                     <img src="{{ asset('img/iklan-indomie.png') }}" class="img-fluid img-iklan"
                                         alt="iklan">
-                                </div>
-                            </a>
+                                </a>
+                            </div>
+
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
                             data-bs-slide="prev">
@@ -106,7 +104,7 @@
                 <div class="col-12">
                     <div class="d-flex justify-content-start">
                         <div class="line me-2"></div>
-                        <h2 class="text-center">Hasil Pencarian</h2>
+                        <h2 class="text-center">Search Result "{{ $searchTerm }}"</h2>
                     </div>
                 </div>
             </div>

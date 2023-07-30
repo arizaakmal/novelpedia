@@ -10,45 +10,66 @@
 
 @section('content')
     {{-- Make novel content --}}
-
+    {{-- @php
+        $genreNames = $novel->genres->pluck('name')->implode(', ');
+    @endphp --}}
 
     <div class="container mt-5">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/" class="text-decoration-none">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ $novel->title }}</li>
+            </ol>
+        </nav>
         <div class="row">
             <h2>{{ $novel->title }}</h2>
         </div>
-        <div class="row">
-
-            <div class="card" style="width: 18rem;">
-                <img src="{{ asset('storage/covers/' . $novel->cover) }}" class="" alt="{{ $novel->title }}">
-            </div>
-            <div class="col-md-6 float-start">
-                <h3><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill me-1"></i><i
-                        class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill me-1 "></i><i
-                        class="bi bi-star-half me-1"></i> 4.5</h3>
-                @php
-                    $genreNames = $novel->genres->pluck('name')->implode(', ');
-                @endphp
-
-                <p>Genre: {{ $genreNames }}</p>
-                <p>Author: <a href="/author/{{ $novel->author->slug }}"
-                        class="text-decoration-none text-black">{{ $novel->author->name }}</a> </p>
-                <p>Description: </p>
-
-                <p id="description" class="description-collapsed">
-                    {{ Str::limit($novel->description, 200, '...') }}
+        <div class="row mt-2">
+            <div class="col-md-3 text-center">
+                <img src="{{ asset('storage/covers/' . $novel->cover) }}" class="w-100 mx-auto mb-3 shadow"
+                    alt="{{ $novel->title }}">
+                <p><i class="fa-solid fa-bookmark" style="color: #000000;"></i> Add to bookmark</p>
+                @foreach ($novel->genres as $genre)
+                    <a href="#" class="badge text-bg-dark text-decoration-none">{{ $genre->name }}</a>
+                @endforeach
+                <p class="my-3 "><i class="fa-solid fa-eye mt-2" style="color: #000000;"></i>
+                    @if ($novel->views >= 1000000000)
+                        {{ round($novel->views / 1000000000, 1) }}B
+                    @elseif ($novel->views >= 1000000)
+                        {{ round($novel->views / 1000000, 1) }}M
+                    @elseif ($novel->views >= 1000)
+                        {{ round($novel->views / 1000, 1) }}K
+                    @else
+                        {{ $novel->views }}
+                    @endif
+                    <i class="fa-solid fa-bars ms-3" style="color: #000000;"></i> {{ $novel->pages }} Pages
                 </p>
 
-                <a href="#" id="show-more" onclick="toggleDescription()" style="cursor: pointer"
-                    data-limited-description="{{ Str::limit($novel->description, 200, '...') }}"
-                    data-full-description="{{ $novel->description }}">Show More</a>
+            </div>
+            <div class="col-md-6 float-start">
+                <h3><i class="fa-solid fa-star" style="color: #eeff00;"></i> {{ $novel->rating }}</h3>
+
+                {{-- <p>Genre: {{ $genreNames }}</p> --}}
+                {{-- <p>Author: {{ $novel->author->name }} </p> --}}
+                <p class="fw-bolder fs-5">Synopsis </p>
+
+                <p id="description" class="description description-collapsed mb-0"
+                    data-full-description="{{ $novel->description }}"
+                    data-limited-description="{{ Str::limit($novel->description, 200, '...') }}">
+                    {{ Str::limit($novel->description, 200) }}
+                </p>
+                <div class="toggle_btn mt-2">
+                    <span class="toggle_text fw-bolder">Show More</span> <span class="arrow">
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </span>
+                </div>
+
+
 
                 <a href="https://shopee.co.id/search?keyword={{ $novel->title }} {{ $novel->author->name }}"
                     target="_blank" class="btn text-white fs-4 p-3 shadow d-block mb-3"
                     style="background-color: #f94c30;"><i class="fa-solid fa-cart-shopping " style="color: #ffffff;"></i>
                     Buy on Shopee </a>
-                {{-- <a href="https://shopee.co.id/search?keyword={{ $novel->title }} {{ $novel->author->name }}"
-                    target="_blank" class="btn text-white fs-4 p-3 shadow d-block" style="background-color: #0060af;"><img
-                        src="{{ asset('img/gramedia.png') }}" alt=""> Buy on Gramedia </a> --}}
             </div>
         </div>
     </div>

@@ -1,19 +1,12 @@
-var descriptionExpanded = false;
+$(".toggle_btn").click(function () {
+    $(this).toggleClass("active");
+    $(".description").toggleClass("active");
 
-function toggleDescription() {
-    var description = document.getElementById("description");
-    var showMoreButton = document.getElementById("show-more");
-
-    if (description.classList.contains("description-collapsed")) {
-        description.classList.remove("description-collapsed");
-        description.innerHTML = showMoreButton.dataset.fullDescription;
-        showMoreButton.textContent = "Show Less";
-        console.log("berhasil show more");
+    if ($(".toggle_btn").hasClass("active")) {
+        $(".toggle_text").text("Show Less");
+        $("#description").html($("#description").data("full-description"));
     } else {
-        description.classList.add("description-collapsed");
-        description.innerHTML = showMoreButton.dataset.limitedDescription;
-        showMoreButton.textContent = "Show More";
-        console.log("berhasil show less");
+        $(".toggle_text").text("Show More");
+        $("#description").html($("#description").data("limited-description"));
     }
-    descriptionExpanded = !descriptionExpanded;
-}
+});

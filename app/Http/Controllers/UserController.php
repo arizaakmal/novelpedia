@@ -130,10 +130,9 @@ class UserController extends Controller
             //if successful, then redirect to their intended location
             return redirect()->intended(route('home'));
         }
-
     }
 
- 
+
     public function changePassword(Request $request)
     {
 
@@ -157,7 +156,7 @@ class UserController extends Controller
         $user = User::find(auth()->user()->id);
 
         // Update password
-        $user->password = Hash::make($validatedData['password']);
+        $user->password = $validatedData['password'];
 
         // Save user
         $user->save();

@@ -129,6 +129,6 @@ class NovelController extends Controller
         // $cari = $request->cari;
         $searchTerm = $request->input('keywords');
         $novel = Novel::where('title', 'LIKE', "%$searchTerm%")->get();
-        return view('index', ['title' => 'Hasil Pencarian...', 'active' => 'cari', 'novels' => $novel]);
+        return view('index', ['title' => 'Hasil Pencarian...', 'active' => 'cari', 'novels' => $novel, 'searchTerm' => $searchTerm]);
     }
 }

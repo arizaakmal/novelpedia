@@ -95,15 +95,14 @@ Route::resource('dashboard/novels', DashboardNovelController::class)->names([
     'destroy' => 'dashboard.novels.destroy',
 ]);
 
-Route::resource('dashboard/authors', DashboardAuthorController::class)->names([
-    'index' => 'dashboard.authors.index',
-    'create' => 'dashboard.authors.create',
-    'store' => 'dashboard.authors.store',
-    'show' => 'dashboard.authors.show',
-    'edit' => 'dashboard.authors.edit',
-    'update' => 'dashboard.authors.update',
-    'destroy' => 'dashboard.authors.destroy',
-]
+Route::resource('dashboard/authors', DashboardAuthorController::class)->names(
+    [
+        'index' => 'dashboard.authors.index',
+        'create' => 'dashboard.authors.create',
+        'store' => 'dashboard.authors.store',
+        'show' => 'dashboard.authors.show',
+        'edit' => 'dashboard.authors.edit',
+        'update' => 'dashboard.authors.update',
+        'destroy' => 'dashboard.authors.destroy',
+    ]
 );
-
-

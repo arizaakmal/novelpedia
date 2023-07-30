@@ -22,7 +22,7 @@
 
             <form class=" d-flex " role="search" action="/cari" method="GET">
                 <div class="search-box me-2">
-                    <input class="form-control " type="search" name="keywords" placeholder="Cari Novel"
+                    <input class="form-control " type="search" name="keywords" placeholder="Search Novel"
                         aria-label="Search">
                     <button class="fa fa-search btn btn-unstyled px-1" type="submit"></button>
                 </div>

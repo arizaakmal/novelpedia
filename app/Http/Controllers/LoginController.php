@@ -37,7 +37,7 @@ class LoginController extends Controller
             Auth::login($user);
             $request->session()->regenerate();
 
-            return redirect()->intended('/')->with('success', 'Anda berhasil login.');
+            return redirect()->intended('/')->with('success', 'You have successfully logged in.');
         }
 
         return back()->withErrors([
@@ -51,6 +51,6 @@ class LoginController extends Controller
         Auth::logout();
         $request->session()->flush();
 
-        return redirect('/')->with('success', 'Anda berhasil logout.');
+        return redirect('/')->with('success', 'You have successfully logged out.');
     }
 }

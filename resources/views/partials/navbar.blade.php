@@ -55,8 +55,8 @@
                 </ul>
             @else
                 <form action="" class=" d-flex">
-                    <button class=" btn btn-success btn-login "><a class="nav-link" href="/login">Log
-                            In</a></button>
+                    <a class="btn btn-success btn-login" href="/login">Log
+                        In</a>
                 </form>
             @endif
         </div>

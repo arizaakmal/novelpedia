@@ -2,8 +2,7 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-
+use App\Models\Tags;
 use App\Models\Author;
 use App\Models\Genre;
 use App\Models\Novel;
@@ -22,6 +21,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(AuthorSeeder::class);
         $this->call(GenreSeeder::class);
+        $this->call(TagSeeder::class);
         $this->call(NovelSeeder::class);
         $this->call(UserSeeder::class);
     }

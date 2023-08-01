@@ -36,6 +36,11 @@ class Novel extends Model
         return $this->belongsTo(Author::class);
     }
 
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
+    }
+
     public function genres()
     {
         return $this->belongsToMany(Genre::class);
@@ -50,5 +55,4 @@ class Novel extends Model
     {
         return 'slug';
     }
-
 }

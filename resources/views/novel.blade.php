@@ -51,36 +51,73 @@
 
                 {{-- <p>Genre: {{ $genreNames }}</p> --}}
                 {{-- <p>Author: {{ $novel->author->name }} </p> --}}
-                <p class="fw-bolder fs-5">Synopsis </p>
+                <p class="fw-bolder fs-5">Synopsis</p>
 
                 <p id="description" class="description description-collapsed mb-0"
                     data-full-description="{{ $novel->description }}"
                     data-limited-description="{{ Str::limit($novel->description, 200, '...') }}">
                     {{ Str::limit($novel->description, 200) }}
+
                 </p>
-                <div class="toggle_btn mt-2">
+                <div class="toggle_btn d-inline-block">
                     <span class="toggle_text fw-bolder">Show More</span> <span class="arrow">
                         <i class="fa-solid fa-chevron-down"></i>
                     </span>
                 </div>
+                <p class="fw-bolder fs-5 mt-3">Tags</p>
+                @foreach ($novel->tags as $tag)
+                    <a href="#" class="btn btn-light rounded-pill text-primary">#{{ strtoupper($tag->name) }}</a>
+                @endforeach
 
 
 
                 <a href="https://shopee.co.id/search?keyword={{ $novel->title }} {{ $novel->author->name }}"
-                    target="_blank" class="btn text-white fs-4 p-3 shadow d-block mb-3"
+                    target="_blank" class="btn text-white fs-4 p-3 shadow d-block my-3"
                     style="background-color: #f94c30;"><i class="fa-solid fa-cart-shopping " style="color: #ffffff;"></i>
                     Buy on Shopee </a>
             </div>
-        </div>
-    </div>
+            <div class="col-3">
+                {{-- <h5>Related Novels</h5> --}}
+                <p class="fw-bolder fs-5">Related Novels</p>
+                {{-- @foreach ($novels as $index => $novel)
+                    <div class="card rounded-0 @if ($index === 0) rounded-top @elseif ($index === count($novels) - 1) rounded-bottom @endif"
+                        style="max-width: 540px;">
+                        <div class="row g-0 align-items-center">
+                            <div class="col-md-4">
+                                <img src="{{ asset('storage/covers/' . $novel->cover) }}" class="img-fluid rounded-0"
+                                    alt="{{ $novel->title }}">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h6 class="card-title text-center">{{ $novel->title }}</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach --}}
 
-    <div class="album pt-5 bg-light mt-5">
-        <div class="container">
-            <div class="row">
-                <h3 class="fw-light">Comments Area</h3>
-                <div class="col-md-8">
-                    <div class="form-floating">
-                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+
+                {{-- <div class="row align-items-center border ">
+                    <div class="col-4 ">
+                        <img src="{{ asset('storage/covers/' . $novel->cover) }}" class="w-100 "
+                            alt="{{ $novel->title }}">
+                    </div>
+                    <div class="col-8 ">
+                        <p class="text-center"> {{ $novel->title }}</p>
+                    </div>
+                </div> --}}
+
+            </div>
+        </div>
+
+        <div class="album pt-5 bg-light mt-5">
+            <div class="container">
+                <div class="row">
+                    <h3 class="fw-light">Comments Area</h3>
+                    <div class="col-md-8">
+                        <div class="form-floating">
+                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                        </div>
                     </div>
                 </div>
             </div>

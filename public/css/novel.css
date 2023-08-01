@@ -23,3 +23,7 @@
 .toggle_btn.active .fa-chevron-down {
     transform: rotate(180deg);
 }
+
+a.rounded-pill:hover {
+    text-decoration: underline;
+}

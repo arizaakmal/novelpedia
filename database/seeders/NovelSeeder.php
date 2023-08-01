@@ -6,6 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Novel;
 use App\Models\Genre;
+use App\Models\Tag;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -31,6 +32,7 @@ class NovelSeeder extends Seeder
                 'author_id' => 6,
                 'cover' => 'Reincarnation-Of-The-Strongest-Sword-God.png',
                 'genres' => [1, 2, 5],
+                'tags' => [1, 2, 3, 4],
             ],
             [
                 'title' => 'Library of Heaven\'s Path',
@@ -45,6 +47,7 @@ class NovelSeeder extends Seeder
                 'author_id' => 7,
                 'cover' => 'Library-of-Heavens-Path.jpg',
                 'genres' => [1, 3, 5],
+                'tags' => [2, 3, 12, 13],
             ],
             [
                 'title' => 'The Nightingale',
@@ -58,7 +61,9 @@ class NovelSeeder extends Seeder
                 'author_id' => 8,
                 'cover' => 'axfn59rzrzjbpugupkony8.jpg',
                 'genres' => [9, 10],
+                'tags' => [9, 10, 11],
             ],
+
             [
                 'title' => 'You Better Be Lightning',
                 'slug' => 'you-better-be-lightning',
@@ -71,6 +76,7 @@ class NovelSeeder extends Seeder
                 'author_id' => 9,
                 'cover' => 'YBBL-Award-Cover-1-360x548.png',
                 'genres' => [10],
+                'tags' => [7, 9, 11],
             ],
             [
                 'title' => 'Dune',
@@ -82,6 +88,7 @@ class NovelSeeder extends Seeder
                 'author_id' => 10,
                 'cover' => 'ih86gbr4urzmibs3ah49hq.jpg',
                 'genres' => [2, 5, 10],
+                'tags' => [5, 6, 8],
             ],
             [
                 'title' => 'Bulan',
@@ -94,6 +101,7 @@ class NovelSeeder extends Seeder
                 'author_id' => 11,
                 'cover' => '457f51bdb14c378652347759c684df27.jpg',
                 'genres' => [2, 5],
+                'tags' => [8, 11],
             ],
 
 
@@ -114,6 +122,13 @@ class NovelSeeder extends Seeder
             $genreIds = $novelData['genres'];
             $genres = Genre::whereIn('id', $genreIds)->get();
             $novel->genres()->attach($genres);
+
+
+            $tagIds = $novelData['tags'];
+            $tags = Tag::whereIn('id', $tagIds)->get();
+            $novel->tags()->attach($tags);
+
+
 
             // Menyimpan cover gambar ke storage dan menghubungkannya dengan novel
             $cover = $novelData['cover'];

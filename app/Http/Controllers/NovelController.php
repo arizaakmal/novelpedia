@@ -87,7 +87,8 @@ class NovelController extends Controller
      */
     public function show(Novel $novel)
     {
-        return view('novel', ['title' => 'novel', 'active' => 'novel', 'novel' => $novel]);
+        $novels = Novel::latest()->orderBy('id', 'desc')->filter(request(['search']))->paginate(6)->withQueryString();
+        return view('novel', ['title' => 'novel', 'active' => 'novel', 'novel' => $novel, 'novels' => $novels]);
     }
 
     /**

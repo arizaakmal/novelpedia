@@ -176,11 +176,34 @@
             <div class="splide mt-3" role="group" aria-label="Splide Basic HTML Example">
                 <div class="splide__track">
                     <ul class="splide__list ">
+                        @php
+                            function getRandomColor($usedColors)
+                            {
+                                // Daftar warna yang diizinkan
+                                $allowedColors = ['#f87171', '#84cc16', '#22c55e', '#14b8a6', '#3b82f6', '#f97316'];
+                            
+                                // Mengambil warna acak dari daftar di atas
+                                $randomColor = $allowedColors[array_rand($allowedColors)];
+                            
+                                // Memastikan warna acak tidak ada dalam array $usedColors
+                                while (in_array($randomColor, $usedColors)) {
+                                    $randomColor = $allowedColors[array_rand($allowedColors)];
+                                }
+                            
+                                return $randomColor;
+                            }
+                            
+                            // Array untuk melacak warna-warna yang sudah digunakan
+                            $usedColors = [];
+                        @endphp
                         @foreach ($genres as $genre)
                             @if ($genre->novels()->exists())
                                 @php
                                     $novel = $genre->novels()->first();
-                                    $color = '#' . bin2hex(random_bytes(3));
+                                    $color = getRandomColor($usedColors);
+                                    
+                                    // Tambahkan warna acak ke dalam array $usedColors agar tidak digunakan lagi
+                                    $usedColors[] = $color;
                                 @endphp
                                 <li class="splide__slide ">
                                     <div class="card card-genre bg-gradient-radial rounded-lg border-none mb-5"

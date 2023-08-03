@@ -29,13 +29,14 @@
                 {{-- <button class="btn btn-outline-primary " type="submit">Search</button> --}}
             </form>
             @if (Auth::check())
-                <ul class="navbar-nav me-1 mb-2 mb-lg-0">
+                <ul class="navbar-nav me-1 mb-2 mb-lg-0 ms-3">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
-                            Welcome, {{ explode(' ', Auth::user()->name)[0] }}
+                            <i class="fa-solid fa-user fa-xl" style="color: #ffffff;"></i>
+                            {{-- Welcome, {{ explode(' ', Auth::user()->name)[0] }} --}}
                         </a>
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu dropdown-menu-end">
                             <li><a class="dropdown-item" href="{{ route('profile') }}">Profile</a>
                             </li>
                             @if (Auth::user()->isAdmin())

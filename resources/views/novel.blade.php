@@ -10,9 +10,7 @@
 
 @section('content')
     {{-- Make novel content --}}
-    {{-- @php
-        $genreNames = $novel->genres->pluck('name')->implode(', ');
-    @endphp --}}
+
 
     <div class="container mt-5">
         <nav aria-label="breadcrumb">
@@ -77,36 +75,45 @@
                     Buy on Shopee </a>
             </div>
             <div class="col-3">
-                {{-- <h5>Related Novels</h5> --}}
                 <p class="fw-bolder fs-5">Related Novels</p>
-                {{-- @foreach ($novels as $index => $novel)
-                    <div class="card rounded-0 @if ($index === 0) rounded-top @elseif ($index === count($novels) - 1) rounded-bottom @endif"
-                        style="max-width: 540px;">
-                        <div class="row g-0 align-items-center">
-                            <div class="col-md-4">
-                                <img src="{{ asset('storage/covers/' . $novel->cover) }}" class="img-fluid rounded-0"
-                                    alt="{{ $novel->title }}">
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <h6 class="card-title text-center">{{ $novel->title }}</h6>
-                                </div>
+
+                @foreach ($novels as $novel)
+                    @php
+                        $genreNames = $novel->genres->pluck('name')->implode(', ');
+                    @endphp
+                    <div class="row align-items-center py-2 ">
+                        <div class="col-md-4">
+                            <img src="{{ asset('storage/covers/' . $novel->cover) }}" class="img-fluid rounded "
+                                alt="{{ $novel->title }}">
+                        </div>
+                        <div class="col-md-8">
+                            <p class="mb-0">{{ $novel->title }}</p>
+                            <small class="mb-0 text-secondary">{{ $genreNames }}</small>
+                            <p class="mb-0 "><i class="fa-solid fa-star" style="color: #eeff00;"></i>
+                                {{ $novel->rating }}</p>
+                        </div>
+                    </div>
+                @endforeach
+
+
+
+
+                {{-- <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="{{ asset('storage/covers/' . $novel->cover) }}" class="img-fluid "
+                                alt="{{ $novel->title }}">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">Card title</h5>
+                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
+                                    additional content. This content is a little bit longer.</p>
+                                <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
                             </div>
                         </div>
                     </div>
-                @endforeach --}}
-
-
-                {{-- <div class="row align-items-center border ">
-                    <div class="col-4 ">
-                        <img src="{{ asset('storage/covers/' . $novel->cover) }}" class="w-100 "
-                            alt="{{ $novel->title }}">
-                    </div>
-                    <div class="col-8 ">
-                        <p class="text-center"> {{ $novel->title }}</p>
-                    </div>
                 </div> --}}
-
             </div>
         </div>
 

@@ -44,13 +44,13 @@
                 <div class="col-6">
                     <div id="carouselExampleAutoplaying" class="carousel slide w-100 " data-bs-ride="carousel">
                         <div class="carousel-inner ">
-                            <div class="carousel-item active img card ">
+                            <div class="carousel-item active  ">
                                 <a href="https://mcdonalds.co.id/" target="_blank">
                                     <img src="{{ asset('img/iklan-burger.jpg') }}" class="img-fluid img-iklan"
                                         alt="iklan">
                                 </a>
                             </div>
-                            <div class="carousel-item img card ">
+                            <div class="carousel-item ">
                                 <a href="https://www.indomie.com/" target="_blank">
                                     <img src="{{ asset('img/iklan-indomie.png') }}" class="img-fluid img-iklan"
                                         alt="iklan">
